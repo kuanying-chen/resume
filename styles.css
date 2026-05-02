@@ -460,6 +460,85 @@ body.dark .education-grid article {
   font-weight: 400;
 }
 
+.tools-heading {
+  margin-top: 34px;
+}
+
+.tools-dialogue {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+body.dark .tools-dialogue {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dialogue-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dialogue-row strong {
+  color: var(--sand);
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.dialogue-row-boss {
+  justify-content: flex-start;
+}
+
+.dialogue-row-me {
+  justify-content: flex-end;
+}
+
+.speech-bubble {
+  position: relative;
+  width: fit-content;
+  max-width: min(420px, 78%);
+  min-height: 54px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  background: var(--sheet);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.boss-bubble::before,
+.me-bubble::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  width: 10px;
+  height: 10px;
+  border: solid var(--line);
+  background: var(--sheet);
+  transform: rotate(45deg);
+}
+
+.boss-bubble::before {
+  left: -6px;
+  border-width: 0 0 1px 1px;
+}
+
+.me-bubble::after {
+  right: -6px;
+  border-width: 1px 1px 0 0;
+}
+
+.speech-bubble.is-changing {
+  opacity: 0;
+  transform: translateY(5px);
+}
+
 .education-grid {
   display: grid;
   gap: 12px;
@@ -591,6 +670,14 @@ body.dark .education-grid article {
 
   .skills-grid {
     grid-template-columns: 1fr;
+  }
+
+  .tools-dialogue {
+    padding: 14px;
+  }
+
+  .speech-bubble {
+    max-width: calc(100% - 52px);
   }
 }
 

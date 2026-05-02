@@ -2,6 +2,22 @@ const tabButtons = document.querySelectorAll(".tab-button");
 const panels = document.querySelectorAll(".content-panel");
 const timelineItems = document.querySelectorAll(".timeline-item");
 const themeButtons = document.querySelectorAll(".theme-toggle");
+const bossDialogue = document.querySelector('[data-dialogue="boss"]');
+const meDialogue = document.querySelector('[data-dialogue="me"]');
+const dialoguePairs = [
+  {
+    boss: "What tools do you know?",
+    me: "Pretty much anything Adobe\u2014and AI, your favorite.",
+  },
+  {
+    boss: "Great! I\u2019ll give you more to work on.",
+    me: "Do I get paid more?",
+  },
+  {
+    boss: "...",
+    me: "...",
+  },
+];
 
 function showPanel(panelName) {
   tabButtons.forEach((button) => {
@@ -39,3 +55,26 @@ themeButtons.forEach((button) => {
     document.body.classList.toggle("dark");
   });
 });
+
+if (bossDialogue && meDialogue) {
+  let dialogueIndex = 0;
+
+  window.setInterval(() => {
+    dialogueIndex = (dialogueIndex + 1) % dialoguePairs.length;
+    bossDialogue.classList.add("is-changing");
+
+    window.setTimeout(() => {
+      bossDialogue.textContent = dialoguePairs[dialogueIndex].boss;
+      bossDialogue.classList.remove("is-changing");
+    }, 320);
+
+    window.setTimeout(() => {
+      meDialogue.classList.add("is-changing");
+    }, 1600);
+
+    window.setTimeout(() => {
+      meDialogue.textContent = dialoguePairs[dialogueIndex].me;
+      meDialogue.classList.remove("is-changing");
+    }, 1920);
+  }, 5600);
+}
