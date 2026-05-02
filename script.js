@@ -14,8 +14,8 @@ const dialoguePairs = [
     me: "Do I get paid more?",
   },
   {
-    boss: "...",
-    me: "...",
+    boss: "Haha.",
+    me: "Haha.",
   },
 ];
 
