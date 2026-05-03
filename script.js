@@ -18,6 +18,9 @@ const dialoguePairs = [
     me: "Haha.",
   },
 ];
+let dialogueIndex = 0;
+let dialogueInterval;
+let meRevealTimer;
 
 function showPanel(panelName) {
   tabButtons.forEach((button) => {
@@ -27,6 +30,51 @@ function showPanel(panelName) {
   panels.forEach((panel) => {
     panel.classList.toggle("is-visible", panel.dataset.panel === panelName);
   });
+
+  if (panelName === "profile") {
+    startDialogue();
+  }
+}
+
+function startDialogue() {
+  if (!bossDialogue || !meDialogue) {
+    return;
+  }
+
+  const meDialogueRow = meDialogue.closest(".dialogue-row");
+
+  window.clearInterval(dialogueInterval);
+  window.clearTimeout(meRevealTimer);
+
+  dialogueIndex = 0;
+  bossDialogue.textContent = dialoguePairs[0].boss;
+  meDialogue.textContent = dialoguePairs[0].me;
+  bossDialogue.classList.remove("is-changing");
+  meDialogue.classList.remove("is-changing");
+  meDialogueRow?.classList.add("is-waiting");
+
+  meRevealTimer = window.setTimeout(() => {
+    meDialogueRow?.classList.remove("is-waiting");
+  }, 1600);
+
+  dialogueInterval = window.setInterval(() => {
+    dialogueIndex = (dialogueIndex + 1) % dialoguePairs.length;
+    bossDialogue.classList.add("is-changing");
+
+    window.setTimeout(() => {
+      bossDialogue.textContent = dialoguePairs[dialogueIndex].boss;
+      bossDialogue.classList.remove("is-changing");
+    }, 320);
+
+    window.setTimeout(() => {
+      meDialogue.classList.add("is-changing");
+    }, 1600);
+
+    window.setTimeout(() => {
+      meDialogue.textContent = dialoguePairs[dialogueIndex].me;
+      meDialogue.classList.remove("is-changing");
+    }, 1920);
+  }, 5600);
 }
 
 tabButtons.forEach((button) => {
@@ -55,26 +103,3 @@ themeButtons.forEach((button) => {
     document.body.classList.toggle("dark");
   });
 });
-
-if (bossDialogue && meDialogue) {
-  let dialogueIndex = 0;
-
-  window.setInterval(() => {
-    dialogueIndex = (dialogueIndex + 1) % dialoguePairs.length;
-    bossDialogue.classList.add("is-changing");
-
-    window.setTimeout(() => {
-      bossDialogue.textContent = dialoguePairs[dialogueIndex].boss;
-      bossDialogue.classList.remove("is-changing");
-    }, 320);
-
-    window.setTimeout(() => {
-      meDialogue.classList.add("is-changing");
-    }, 1600);
-
-    window.setTimeout(() => {
-      meDialogue.textContent = dialoguePairs[dialogueIndex].me;
-      meDialogue.classList.remove("is-changing");
-    }, 1920);
-  }, 5600);
-}

@@ -407,7 +407,7 @@ body.dark .tab-button.is-active {
   margin: 0;
 }
 
-.description p + p {
+.description p+p {
   margin-top: 10px;
 }
 
@@ -481,6 +481,12 @@ body.dark .tools-dialogue {
   display: flex;
   align-items: center;
   gap: 10px;
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.dialogue-row.is-waiting {
+  opacity: 0;
+  transform: translateY(5px);
 }
 
 .dialogue-row strong {
@@ -571,6 +577,7 @@ body.dark .tools-dialogue {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
